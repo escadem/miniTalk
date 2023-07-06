@@ -30,7 +30,6 @@ int	ft_atoi(const char *str)
 int	main(int	argc, char** argv)
 {
 	pid_t	server_pid;
-	int		signal;
 
 	if (argc != 3)
 	{
@@ -38,13 +37,15 @@ int	main(int	argc, char** argv)
 		return 0;
 	}
 	server_pid = ft_atoi(argv[1]);
-	signal = ft_atoi(argv[2]);
-	if (kill(server_pid, signal) == 0)
-		printf("Señal enviada correctamente\n");
-	else
-	{
-		printf("Error al enviar la señal\n");
-		return 0;
-	}
+	if (argv[2][0] == '0') 
+		kill(server_pid, SIGUSR1);
+	if (argv[2][0] == '1') 
+		kill(server_pid, SIGUSR2);
+	// 	printf("Señal enviada correctamente\n");
+	// else
+	// {
+	// 	printf("Error al enviar la señal\n");
+	// 	return 0;
+	// }
 	return 0;
 }

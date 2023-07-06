@@ -4,10 +4,10 @@
 
 void	signalHandler(int signal)
 {
-	if (signal == 0)
-		printf("Señal capturada: %d\n", signal);
-	else
-		printf("Señal capturada: %d\n", signal);
+	if (signal == SIGUSR1)
+		printf("Recibido bit = 0\n");
+	if (signal == SIGUSR2)
+		printf("Recibido bit = 1\n");
 }
 
 
@@ -19,11 +19,8 @@ int	main()
 	//
 	printf("Esperando señales...\n");
 	signal(SIGUSR1, signalHandler);
-	// while (1)
-	// {
-	// 	// signal(SIGUSR1, signalHandler);
-	// 	sleep(10);
-	// }
-	sleep(10);
+	signal(SIGUSR2, signalHandler);
+	while (1)
+		sleep(1);
 	return 0;
 }
