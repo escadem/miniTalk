@@ -16,21 +16,24 @@ int		ft_power(int base, int exp)
 
 void	signalHandler(int signal)
 {
-	static int	i;
-	static int	strlength;
+	static size_t	i;
+	static unsigned int	strlength;
 
-	printf("i = %d\n", i);
-	if (signal == SIGUSR1)
-		i++;
-		// printf("i = %d, Recibido bit = 0\n", i++);
-	if (signal == SIGUSR2)
+	while (i < sizeof(size_t) * 8)
 	{
-		strlength = strlength + ft_power(2, i);
-		i++;
+		// printf("i = %d, strlength = %d\n", i, strlength);
+		if (signal == SIGUSR1)
+			i++;
+			// printf("i = %d, Recibido bit = 0\n", i++);
+		else if (signal == SIGUSR2)
+		{
+			strlength = strlength + ft_power(2, i);
+			printf("i = %zu, Recibido bit = 1\n", i);
+			i++;
+		}
+			// printf("i = %d, Recibido bit = 1\n", i++);
+		printf("i = %zu, strlength = %d\n", i, strlength);
 	}
-		// printf("i = %d, Recibido bit = 1\n", i++);
-	printf("i = %d, strlength = %d\n", i, strlength);
-	
 	usleep(50);
 }
 
@@ -38,6 +41,7 @@ void	signalHandler(int signal)
 int	main()
 {
 	pid_t	server_pid;
+
 	server_pid = getpid();
 	printf("El PID del programa servidor es: %d\n", server_pid);
 	//
