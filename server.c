@@ -19,22 +19,32 @@ void	signalHandler(int signal)
 	static size_t	i;
 	static unsigned int	strlength;
 
-	while (i < sizeof(size_t) * 8)
+	if (i < sizeof(size_t) * 8)
 	{
 		// printf("i = %d, strlength = %d\n", i, strlength);
 		if (signal == SIGUSR1)
 			i++;
 			// printf("i = %d, Recibido bit = 0\n", i++);
-		else if (signal == SIGUSR2)
+		if (signal == SIGUSR2)
 		{
 			strlength = strlength + ft_power(2, i);
-			printf("i = %zu, Recibido bit = 1\n", i);
+			// printf("i = %zu, Recibido bit = 1\n", i);
 			i++;
 		}
 			// printf("i = %d, Recibido bit = 1\n", i++);
-		printf("i = %zu, strlength = %d\n", i, strlength);
+		// printf("i = %zu, strlength = %d\n", i, strlength);
 	}
-	usleep(50);
+	printf("La longitud de la cadena es %d\n", strlength);
+	if (i < sizeof(char) * 8)
+	{
+		
+	}
+	if (i == sizeof(size_t) * 8)
+	{
+		strlength = 0;
+		i = 0;
+	}
+	usleep(100);
 }
 
 
