@@ -63,10 +63,10 @@ size_t	ft_len_capture(int signal, size_t bits, size_t len_capture, char *str)
 {
 	if (bits < __CHAR_BIT__ * sizeof(size_t))
 	{
-		if (signal = SIGUSR2)
-			len_capture += ft_power(2, bit_counter);
+		if (signal == SIGUSR2)
+			len_capture += ft_power(2, bits);
 	}
-	if (bits == __CHAR_BIT__ * sizeof(size_t))
+	if (++bits == __CHAR_BIT__ * sizeof(size_t))
 	{
 		str = malloc(len_capture +1);
 		if (!str)
@@ -79,7 +79,7 @@ size_t	ft_len_capture(int signal, size_t bits, size_t len_capture, char *str)
 
 void	signal_handler(int signal)
 {
-	static size_t	i;
+	static size_t	i;  
 	static size_t	len_capture;
 	static size_t	bit_counter;
 	static char		*str;
@@ -87,19 +87,19 @@ void	signal_handler(int signal)
 	if (!len_capture)
 		len_capture = ft_len_capture(signal, bit_counter, len_capture);
 
-	if (i < sizeof(char) * __CHAR_BIT__)
-	{
-		if (signal == SIGUSR1)
-		{
-			printf("señal recibida = 0\n");
-			i++;
-		}
-		if (signal == SIGUSR2)
-		{
-			printf("señal recibida = 1\n");
-			letter += ft_power(2, i);
-			i++;
-		}
+	// if (i < sizeof(char) * __CHAR_BIT__)
+	// {
+	// 	if (signal == SIGUSR1)
+	// 	{
+	// 		printf("señal recibida = 0\n");
+	// 		i++;
+	// 	}
+	// 	if (signal == SIGUSR2)
+	// 	{
+	// 		printf("señal recibida = 1\n");
+	// 		letter += ft_power(2, i);
+	// 		i++;
+	// 	}
 	}
 	printf("La letra recibida es %c\n", letter);
 	usleep(100);
@@ -107,15 +107,15 @@ void	signal_handler(int signal)
 
 int	main(void)
 {
-	static size_t	i;
-	static size_t	len;
+	// static size_t	i;
+	// static size_t	len;
+	// char			*txt;
 	pid_t			server_pid;
-	char			*txt;
 
 	server_pid = getpid();
 	printf("El PID del programa servidor es: %d\n", server_pid);
-	signal(SIGUSR1, signal_handler);
-	signal(SIGUSR2, signal_handler);
+	signal(SIGUSR1, &signal_handler);
+	signal(SIGUSR2, &signal_handler);
 	while (1)
 		usleep(1);
 	return (0);
