@@ -59,10 +59,33 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (newstr);
 }
 
+size_t	ft_len_capture(int signal, size_t bits, size_t len_capture, char *str)
+{
+	if (bits < __CHAR_BIT__ * sizeof(size_t))
+	{
+		if (signal = SIGUSR2)
+			len_capture += ft_power(2, bit_counter);
+	}
+	if (bits == __CHAR_BIT__ * sizeof(size_t))
+	{
+		str = malloc(len_capture +1);
+		if (!str)
+			return (0);
+		return (1);
+	}
+
+	return (0);
+}
+
 void	signal_handler(int signal)
 {
-	static size_t		i;
-	static unsigned int	letter;
+	static size_t	i;
+	static size_t	len_capture;
+	static size_t	bit_counter;
+	static char		*str;
+
+	if (!len_capture)
+		len_capture = ft_len_capture(signal, bit_counter, len_capture);
 
 	if (i < sizeof(char) * __CHAR_BIT__)
 	{
@@ -82,7 +105,7 @@ void	signal_handler(int signal)
 	usleep(100);
 }
 
-int	main()
+int	main(void)
 {
 	static size_t	i;
 	static size_t	len;

@@ -6,7 +6,7 @@
 /*   By: eescat-l <eescat-l@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 10:39:35 by ysoroko           #+#    #+#             */
-/*   Updated: 2023/07/11 18:32:22 by eescat-l         ###   ########.fr       */
+/*   Updated: 2023/07/12 15:54:18 by eescat-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	ft_receiving(int signal, siginfo_t *info, void *context)
 	}
 }
 
-void (*signal(int signum, void (*handler)(int)))(int);
+// void (*signal(int signum, void (*handler)(int)))(int);
 void	init_sig(int sig, void (*handler)(int, siginfo_t *, void *))
 {
 	struct sigaction	susr;
