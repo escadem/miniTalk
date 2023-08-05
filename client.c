@@ -1,5 +1,5 @@
 // **********************************************************
-// OJO!!!!! HAY QUE SUSTITUIR TODOS LOS PRIINTF POR FT_PRINTF
+// OJO!!!!! HAY QUE SUSTITUIR TODOS LOS PRINTF POR FT_PRINTF
 // 	O UTILIZAR LA FUNCIÓN write
 // **********************************************************
 
@@ -73,7 +73,7 @@ void	ft_send_str(pid_t server_pid, char *str)
 	while (++j < len)
 	{
 		i = -1;
-		while (++i < sizeof(char) * __CHAR_BIT__)
+		while (++i < sizeof(char) * __CHAR_BIT__ * len)
 		{
 			signal = (str[j] >> i) & 1;
 			if (signal == 0)
