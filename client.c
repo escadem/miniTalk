@@ -57,7 +57,8 @@ void	ft_send_strlength(pid_t server_pid, char *str)
 			kill(server_pid, SIGUSR1);
 		else
 			kill(server_pid, SIGUSR2);
-		usleep(500);
+		usleep(50);
+		// usleep(500);
 	}
 }
 
@@ -73,14 +74,16 @@ void	ft_send_str(pid_t server_pid, char *str)
 	while (++j < len)
 	{
 		i = -1;
-		while (++i < sizeof(char) * __CHAR_BIT__ * len)
+		// while (++i < sizeof(char) * __CHAR_BIT__ * len)
+		while (++i < sizeof(char) * __CHAR_BIT__)
 		{
 			signal = (str[j] >> i) & 1;
 			if (signal == 0)
 				kill(server_pid, SIGUSR1);
 			else
 				kill(server_pid, SIGUSR2);
-			usleep(500);
+			// usleep(500);
+			usleep(50);
 		}
 	}
 }
